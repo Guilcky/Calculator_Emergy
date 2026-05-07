@@ -67,3 +67,8 @@ emergia_system/
 │
 ├── main.py
 └── requirements.txt
+```
+
+# Licença
+
+Projeto acadêmico desenvolvido para fins educacionais e científicos.
