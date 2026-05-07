@@ -69,6 +69,6 @@ emergia_system/
 └── requirements.txt
 ```
 
-# Licença
+## Licença
 
 Projeto acadêmico desenvolvido para fins educacionais e científicos.
