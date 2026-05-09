@@ -1,0 +1,4 @@
+source,target,value
+Solar,Planta,100
+Planta,Animal,50
+Animal,Humano,25
