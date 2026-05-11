@@ -1,24 +1,56 @@
 import customtkinter as ctk
 
+
 class AppStyles:
 
-    BACKGROUND = "#0f172a"
-    CARD = "#1e293b"
+    # =====================================================
+    # CORES
+    # =====================================================
 
-    PRIMARY = "#3b82f6"
-    PRIMARY_HOVER = "#2563eb"
+    BACKGROUND = "#081028"
 
-    SUCCESS = "#22c55e"
-    SUCCESS_HOVER = "#16a34a"
+    SIDEBAR = "#172033"
 
-    TEXT = "#f8fafc"
-    SUBTEXT = "#cbd5e1"
+    CARD = "#1b2940"
 
-    FONT_TITLE = ("Arial", 28, "bold")
-    FONT_SUBTITLE = ("Arial", 18)
-    FONT_TEXT = ("Arial", 14)
+    BORDER = "#2a3b57"
+
+    PRIMARY = "#2563eb"
+    PRIMARY_HOVER = "#1d4ed8"
+
+    GREEN = "#00c853"
+
+    ORANGE = "#ff6d00"
+
+    PURPLE = "#a855f7"
+
+    CYAN = "#06b6d4"
+
+    TEXT = "#ffffff"
+
+    SUBTEXT = "#94a3b8"
+
+    # =====================================================
+    # FONTES
+    # =====================================================
+
+    FONT_TITLE = ("Arial", 38, "bold")
+
+    FONT_SUBTITLE = ("Arial", 20)
+
+    FONT_CARD_TITLE = ("Arial", 18)
+
+    FONT_CARD_VALUE = ("Arial", 38, "bold")
+
+    FONT_TEXT = ("Arial", 15)
+
+    # =====================================================
+    # TEMA
+    # =====================================================
 
     @staticmethod
     def configure_theme():
+
         ctk.set_appearance_mode("dark")
+
         ctk.set_default_color_theme("blue")
