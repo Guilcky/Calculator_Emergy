@@ -1,112 +1,92 @@
 # 🌱 EmergyFlow — Sistema de Cálculo de Emergia
 
-Sistema desenvolvido em Python para modelagem, simulação e análise de fluxos de emergia em sistemas complexos, inspirado no software SCALE apresentado no artigo:
+Sistema desenvolvido em Python para modelagem, simulação e análise de fluxos de emergia em sistemas complexos utilizando Inventários do Ciclo de Vida (LCI) e conceitos da álgebra emergética.
 
-> *SCALE: Software for CALculating Emergy based on Life Cycle Inventories* — Marvuglia et al. (2013)
-
-O projeto aplica conceitos de Engenharia de Software, sustentabilidade e álgebra emergética para realizar cálculos ambientais utilizando bases de dados de Inventário do Ciclo de Vida (LCI).
-
----
-
-# 📌 Objetivo do Projeto
-
-O EmergyFlow foi desenvolvido como parte de uma APS (Atividade Prática Supervisionada), com foco em:
-
-- Desenvolvimento de sistemas complexos
-- Aplicação de boas práticas de Engenharia de Software
-- Modelagem de redes ambientais
-- Simulação de fluxos de emergia
-- Visualização gráfica de dados ambientais
-- Geração automatizada de relatórios
+O projeto foi inspirado no software **SCALE (Software for CALculating Emergy based on Life Cycle Inventories)**, apresentado por Marvuglia et al. (2013), sendo desenvolvido como Atividade Prática Supervisionada (APS) da disciplina de Engenharia de Software.
 
 ---
 
 # 🚀 Funcionalidades
 
-## ✔ Gerenciamento de Dados LCI
+## ✔ Importação de Dados LCI
 
-- Importação de arquivos CSV
-- Estruturação de fluxos ambientais
-- Manipulação de matrizes de Inventário do Ciclo de Vida
-- Integração com redes de processos
+* Importação de arquivos CSV
+* Leitura automática de fluxos emergéticos
+* Suporte a análise mensal
+* Estruturação de matrizes ambientais
 
 ---
 
 ## ✔ Simulador Emergético
 
-- Cálculo da emergia total
-- Cálculo da emergia por processo
-- Redes de processos interconectados
-- Aplicação da álgebra emergética
-- Fluxos energéticos entre sistemas
+* Cálculo de emergia total
+* Cálculo de emergia por processo
+* Redes de processos interconectados
+* Aplicação da álgebra emergética
+* Fluxos energéticos entre sistemas
 
 ---
 
 ## ✔ Dashboard Interativo
 
-- Interface moderna em Dark Mode
-- Visualização em tempo real
-- Cards analíticos
-- Indicadores emergéticos
-- Evolução histórica da emergia
+* Interface moderna utilizando CustomTkinter
+* Visualização gráfica da evolução emergética
+* Comparação mensal dinâmica
+* Indicadores analíticos em tempo real
+* Layout responsivo e moderno
 
 ---
 
-## ✔ Visualização Gráfica
+## ✔ Visualização de Redes
 
-- Gráfico de evolução da emergia
-- Distribuição dos processos
-- Visualização da rede emergética
-- Fluxos entre processos
+* Modelagem através de grafos direcionados
+* Exibição visual de conexões entre processos
+* Fluxos energéticos com pesos emergéticos
 
 ---
 
 ## ✔ Relatórios em PDF
 
-- Exportação automática em PDF
-- Sumário emergético
-- Informações analíticas
-- Gráficos integrados
-- Rede de fluxos
-- Salvamento automático na Área de Trabalho
+* Exportação automática em PDF
+* Salvamento automático na Área de Trabalho
+* Tabelas analíticas
+* Gráficos comparativos
+* Fluxos emergéticos
+* Resumo completo da análise
 
 ---
 
-# 🖥 Interface do Sistema
+# 🖥️ Interface do Sistema
 
-O sistema possui um dashboard moderno inspirado em aplicações profissionais de análise de dados.
+O sistema possui uma interface moderna inspirada em dashboards analíticos profissionais, contendo:
 
-### Recursos visuais:
-
-- Sidebar interativa
-- Cards analíticos
-- Gráficos dinâmicos
-- Tema escuro profissional
-- Visual responsivo
+* Sidebar de navegação
+* Cards estatísticos
+* Gráficos mensais
+* Distribuição dos processos
+* Área analítica integrada
+* Geração de relatórios
 
 ---
 
 # 🛠 Tecnologias Utilizadas
 
-## Linguagem
-
-- Python 3
-
-## Bibliotecas
-
-- Pandas
-- NumPy
-- NetworkX
-- Matplotlib
-- CustomTkinter
-- ReportLab
+| Tecnologia    | Função                |
+| ------------- | --------------------- |
+| Python        | Linguagem principal   |
+| Pandas        | Manipulação de dados  |
+| NumPy         | Operações matemáticas |
+| NetworkX      | Modelagem de redes    |
+| Matplotlib    | Geração de gráficos   |
+| CustomTkinter | Interface gráfica     |
+| ReportLab     | Geração de PDF        |
 
 ---
 
 # 📁 Estrutura do Projeto
 
 ```bash
-emergy_system/
+emergyflow/
 │
 ├── core/
 │   ├── config.py
@@ -116,7 +96,6 @@ emergy_system/
 │
 ├── gui/
 │   ├── app.py
-│   ├── dashboard.py
 │   └── styles.py
 │
 ├── reports/
@@ -129,31 +108,50 @@ emergy_system/
 │   └── exemplo_lci.csv
 │
 ├── main.py
-│
-└── requirements.txt
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-# ⚙ Como Executar o Projeto
+# 📊 Exemplo de Arquivo CSV
 
-## 1️⃣ Clone o repositório
+```csv
+month,source,target,value
+Jan,Energia Solar,Agricultura,50
+Jan,Água,Agricultura,30
+Jan,Agricultura,Indústria,70
+
+Fev,Energia Solar,Agricultura,180
+Fev,Água,Agricultura,120
+Fev,Agricultura,Indústria,240
+
+Mar,Energia Solar,Agricultura,120
+Mar,Água,Agricultura,80
+Mar,Agricultura,Indústria,160
+```
+
+---
+
+# ▶ Como Executar
+
+## 1️⃣ Clone o Repositório
 
 ```bash
-git clone https://github.com/SEU-USUARIO/emergyflow.git
+git clone https://github.com/Guilcky/Calculator_Emergy.git
 ```
 
 ---
 
-## 2️⃣ Acesse a pasta
+## 2️⃣ Acesse a Pasta
 
 ```bash
-cd emergyflow
+cd Calculator_Emergy
 ```
 
 ---
 
-## 3️⃣ Instale as dependências
+## 3️⃣ Instale as Dependências
 
 ```bash
 pip install -r requirements.txt
@@ -161,7 +159,7 @@ pip install -r requirements.txt
 
 ---
 
-## 4️⃣ Execute o sistema
+## 4️⃣ Execute o Sistema
 
 ```bash
 python main.py
@@ -169,76 +167,48 @@ python main.py
 
 ---
 
-# 📄 Formato do CSV
+# 📈 Funcionalidades Analíticas
 
-O sistema utiliza arquivos `.csv` contendo:
+O sistema permite:
 
-```csv
-source,target,value
-Solar,Agricultura,150
-Agricultura,Indústria,200
-Indústria,Consumo,300
-```
-
-| Coluna | Descrição |
-|---|---|
-| source | Processo de origem |
-| target | Processo de destino |
-| value | Valor do fluxo emergético |
+* análise mensal de emergia;
+* comparação temporal;
+* cálculo de fluxos;
+* visualização gráfica;
+* exportação de relatórios;
+* monitoramento de processos emergéticos.
 
 ---
 
-# 📊 Exemplo de Fluxo Emergético
+# 🧪 Testes
 
-```text
-Solar → Agricultura → Indústria → Consumo
-```
+O projeto inclui testes unitários para validação dos cálculos emergéticos.
 
-Cada conexão representa um fluxo de emergia entre processos do sistema.
-
----
-
-# 🧠 Conceitos Aplicados
-
-O projeto utiliza conceitos de:
-
-- Engenharia de Software
-- Redes Complexas
-- Sistemas Ambientais
-- Inventário do Ciclo de Vida (LCI)
-- Álgebra Emergética
-- Modelagem de Sistemas
-- Sustentabilidade Computacional
-
----
-
-# 🧪 Testes Automatizados
-
-O sistema possui testes unitários utilizando:
-
-```python
-unittest
-```
-
-Executar testes:
+Para executar:
 
 ```bash
-python -m unittest
+python -m unittest discover tests
 ```
 
 ---
 
+# 📚 Referências
+
+MARVUGLIA, Antonino et al.
+*SCALE: Software for CALculating Emergy based on Life Cycle Inventories.*
+Ecological Modelling, v. 248, p. 80–91, 2013.
+
+ARBAULT, Damien et al.
+*Emergy evaluation using the calculation software SCALE.*
+Science of the Total Environment, v. 472, p. 608–619, 2014.
+
+VALYI, Raphaël; ORTEGA, Enrique.
+*Emergy Simulator: An Open Source Simulation Platform Dedicated to Systems Ecology and Emergy Studies.*
+UNICAMP, 2004.
+
+---
 ---
 
+# 📄 Licença
 
-# 📚 Referência Acadêmica
-
-MARVUGLIA, A.; BENETTO, E.; REGE, S.; JURY, C.  
-**SCALE: Software for CALculating Emergy based on Life Cycle Inventories**.  
-Ecological Modelling, 2013.
-
----
-
-# 📜 Licença
-
-Este projeto possui finalidade acadêmica e educacional.
+Este projeto foi desenvolvido para fins acadêmicos.
