@@ -1,6 +1,8 @@
 import unittest
+
 from core.network_model import EmergyNetwork
 from core.emergy_calculator import EmergyCalculator
+
 
 class TestEmergyCalculator(unittest.TestCase):
 
@@ -19,6 +21,7 @@ class TestEmergyCalculator(unittest.TestCase):
             calculator.calculate_total_emergy(),
             100
         )
+
 
 if __name__ == "__main__":
     unittest.main()

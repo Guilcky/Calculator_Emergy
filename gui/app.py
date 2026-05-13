@@ -1,3 +1,15 @@
+# =====================================================
+# app.py COMPLETO E RESPONSIVO
+# COM:
+# ✔ GRÁFICO DINÂMICO
+# ✔ TODOS OS MESES
+# ✔ RESPONSIVIDADE
+# ✔ VISUAL MODERNO
+# ✔ PDF COMPLETO
+# ✔ TABELA NO PDF
+# ✔ VISUAL PROFISSIONAL
+# =====================================================
+
 import customtkinter as ctk
 from tkinter import filedialog
 
@@ -18,10 +30,27 @@ config = Config()
 class EmergyApp(ctk.CTk):
 
     def __init__(self):
+
         super().__init__()
 
         # =====================================================
-        # FECHAMENTO SEGURO
+        # CONFIG
+        # =====================================================
+
+        AppStyles.configure_theme()
+
+        self.title(config.APP_NAME)
+
+        self.geometry("1600x950")
+
+        self.minsize(1400, 850)
+
+        self.configure(
+            fg_color=AppStyles.BACKGROUND
+        )
+
+        # =====================================================
+        # FECHAR
         # =====================================================
 
         self.protocol(
@@ -29,33 +58,19 @@ class EmergyApp(ctk.CTk):
             self.on_close
         )
 
-        AppStyles.configure_theme()
-
-        self.title(config.APP_NAME)
-
-        self.geometry("1500x900")
-        self.minsize(1400, 850)
-
-        self.configure(
-            fg_color="#071226"
-        )
+        # =====================================================
+        # DADOS
+        # =====================================================
 
         self.lci_manager = LCIManager()
+
         self.network = EmergyNetwork()
 
         self.total_emergy = 0
 
         # =====================================================
-        # HISTÓRICO DE EMERGIA
+        # LAYOUT
         # =====================================================
-
-        self.history_values = [120, 180, 160]
-
-        self.history_months = [
-            "Jan",
-            "Fev",
-            "Mar"
-        ]
 
         self.create_layout()
 
@@ -71,9 +86,9 @@ class EmergyApp(ctk.CTk):
 
         self.sidebar = ctk.CTkFrame(
             self,
-            width=320,
-            corner_radius=0,
-            fg_color="#142038"
+            width=300,
+            fg_color="#0f172a",
+            corner_radius=0
         )
 
         self.sidebar.pack(
@@ -85,183 +100,48 @@ class EmergyApp(ctk.CTk):
         # LOGO
         # =====================================================
 
-        self.logo_frame = ctk.CTkFrame(
+        self.logo = ctk.CTkLabel(
             self.sidebar,
-            fg_color="transparent"
-        )
-
-        self.logo_frame.pack(
-            fill="x",
-            padx=28,
-            pady=(35, 30)
-        )
-
-        self.icon_frame = ctk.CTkFrame(
-            self.logo_frame,
-            width=60,
-            height=60,
-            corner_radius=18,
-            fg_color=AppStyles.PRIMARY
-        )
-
-        self.icon_frame.pack(side="left")
-
-        self.icon_label = ctk.CTkLabel(
-            self.icon_frame,
-            text="∿",
+            text="🌱 EmergyFlow",
             font=("Arial", 30, "bold"),
             text_color="white"
         )
 
-        self.icon_label.place(
-            relx=0.5,
-            rely=0.5,
-            anchor="center"
-        )
-
-        self.logo_text_frame = ctk.CTkFrame(
-            self.logo_frame,
-            fg_color="transparent"
-        )
-
-        self.logo_text_frame.pack(
-            side="left",
-            padx=15
-        )
-
-        self.logo_title = ctk.CTkLabel(
-            self.logo_text_frame,
-            text="EmergyFlow",
-            font=("Arial", 34, "bold"),
-            text_color="white"
-        )
-
-        self.logo_title.pack(anchor="w")
-
-        self.logo_subtitle = ctk.CTkLabel(
-            self.logo_text_frame,
-            text="Análise Emergética",
-            font=("Arial", 15),
-            text_color=AppStyles.SUBTEXT
-        )
-
-        self.logo_subtitle.pack(anchor="w")
-
-        # =====================================================
-        # DIVISOR
-        # =====================================================
-
-        divider = ctk.CTkFrame(
-            self.sidebar,
-            height=1,
-            fg_color="#263041"
-        )
-
-        divider.pack(
-            fill="x",
-            pady=(5, 20)
+        self.logo.pack(
+            pady=(40, 30)
         )
 
         # =====================================================
         # MENU
         # =====================================================
 
-        self.menu_frame = ctk.CTkFrame(
-            self.sidebar,
-            fg_color="transparent"
+        self.create_sidebar_button(
+            "📂 Importar CSV",
+            self.import_lci
         )
 
-        self.menu_frame.pack(
-            fill="x",
-            padx=18
+        self.create_sidebar_button(
+            "⚡ Calcular Emergia",
+            self.calculate_emergy
         )
 
-        button_style = {
-            "height": 58,
-            "corner_radius": 16,
-            "anchor": "w",
-            "font": ("Arial", 17, "bold"),
-            "border_width": 0,
-            "hover_color": "#243b5a"
-        }
-
-        self.dashboard_button = ctk.CTkButton(
-            self.menu_frame,
-            text="  Dashboard",
-            fg_color=AppStyles.PRIMARY,
-            text_color="white",
-            **button_style
+        self.create_sidebar_button(
+            "🌐 Visualizar Rede",
+            self.show_network
         )
 
-        self.dashboard_button.pack(
-            fill="x",
-            pady=8
-        )
-
-        self.import_button = ctk.CTkButton(
-            self.menu_frame,
-            text="  Importar Dados",
-            command=self.import_lci,
-            fg_color="transparent",
-            text_color="#e2e8f0",
-            **button_style
-        )
-
-        self.import_button.pack(
-            fill="x",
-            pady=8
-        )
-
-        self.calculate_button = ctk.CTkButton(
-            self.menu_frame,
-            text="  Calcular Emergia",
-            command=self.calculate_emergy,
-            fg_color="transparent",
-            text_color="#e2e8f0",
-            **button_style
-        )
-
-        self.calculate_button.pack(
-            fill="x",
-            pady=8
-        )
-
-        self.network_button = ctk.CTkButton(
-            self.menu_frame,
-            text="  Visualizar Rede",
-            command=self.show_network,
-            fg_color="transparent",
-            text_color="#e2e8f0",
-            **button_style
-        )
-
-        self.network_button.pack(
-            fill="x",
-            pady=8
-        )
-
-        self.report_button = ctk.CTkButton(
-            self.menu_frame,
-            text="  Gerar Relatório",
-            command=self.generate_report,
-            fg_color="transparent",
-            text_color="#e2e8f0",
-            **button_style
-        )
-
-        self.report_button.pack(
-            fill="x",
-            pady=8
+        self.create_sidebar_button(
+            "📄 Gerar Relatório",
+            self.generate_report
         )
 
         # =====================================================
-        # MAIN FRAME
+        # MAIN
         # =====================================================
 
         self.main_frame = ctk.CTkFrame(
             self,
-            fg_color="#071226",
-            corner_radius=0
+            fg_color=AppStyles.BACKGROUND
         )
 
         self.main_frame.pack(
@@ -274,34 +154,18 @@ class EmergyApp(ctk.CTk):
         # HEADER
         # =====================================================
 
-        self.header_frame = ctk.CTkFrame(
+        self.header = ctk.CTkLabel(
             self.main_frame,
-            fg_color="transparent"
-        )
-
-        self.header_frame.pack(
-            fill="x",
-            padx=40,
-            pady=(35, 20)
-        )
-
-        self.header_title = ctk.CTkLabel(
-            self.header_frame,
-            text="Dashboard",
-            font=("Arial", 52, "bold"),
+            text="Dashboard Emergético",
+            font=("Arial", 40, "bold"),
             text_color="white"
         )
 
-        self.header_title.pack(anchor="w")
-
-        self.header_subtitle = ctk.CTkLabel(
-            self.header_frame,
-            text="Visão geral do sistema emergético",
-            font=("Arial", 22),
-            text_color=AppStyles.SUBTEXT
+        self.header.pack(
+            anchor="w",
+            padx=30,
+            pady=(30, 10)
         )
-
-        self.header_subtitle.pack(anchor="w")
 
         # =====================================================
         # CARDS
@@ -314,7 +178,7 @@ class EmergyApp(ctk.CTk):
 
         self.cards_frame.pack(
             fill="x",
-            padx=40,
+            padx=30,
             pady=10
         )
 
@@ -325,87 +189,84 @@ class EmergyApp(ctk.CTk):
 
         self.emergy_card = self.create_card(
             self.cards_frame,
-            title="Emergia Total",
-            value="0",
-            subtitle="sej",
-            color=AppStyles.PRIMARY,
-            column=0
+            "Emergia Total",
+            "0",
+            0
         )
 
         self.process_card = self.create_card(
             self.cards_frame,
-            title="Processos Ativos",
-            value="0",
-            subtitle="processos",
-            color=AppStyles.GREEN,
-            column=1
+            "Processos",
+            "0",
+            1
         )
 
         self.flow_card = self.create_card(
             self.cards_frame,
-            title="Fluxos",
-            value="0",
-            subtitle="conexões",
-            color=AppStyles.PURPLE,
-            column=2
+            "Fluxos",
+            "0",
+            2
         )
 
         # =====================================================
-        # ANALYTICS
+        # CONTAINER PRINCIPAL
         # =====================================================
 
-        self.analytics_frame = ctk.CTkFrame(
+        self.content_frame = ctk.CTkFrame(
             self.main_frame,
             fg_color="transparent"
         )
 
-        self.analytics_frame.pack(
+        self.content_frame.pack(
             fill="both",
             expand=True,
-            padx=40,
-            pady=(10, 25)
+            padx=30,
+            pady=20
         )
 
-        self.analytics_frame.grid_columnconfigure(
+        self.content_frame.grid_columnconfigure(
             (0, 1),
             weight=1
         )
 
+        self.content_frame.grid_rowconfigure(
+            0,
+            weight=1
+        )
+
         # =====================================================
-        # CHART CARD
+        # GRÁFICO
         # =====================================================
 
         self.chart_card = ctk.CTkFrame(
-            self.analytics_frame,
-            fg_color=AppStyles.CARD,
-            corner_radius=22,
-            border_width=1,
-            border_color=AppStyles.BORDER
+            self.content_frame,
+            fg_color="#142038",
+            corner_radius=22
         )
 
         self.chart_card.grid(
             row=0,
             column=0,
-            padx=10,
-            sticky="nsew"
+            sticky="nsew",
+            padx=(0, 10)
         )
 
-        chart_title = ctk.CTkLabel(
+        self.chart_title = ctk.CTkLabel(
             self.chart_card,
-            text="Evolução da Emergia",
-            font=("Arial", 28, "bold"),
+            text="📈 Evolução Emergética",
+            font=("Arial", 24, "bold"),
             text_color="white"
         )
 
-        chart_title.pack(
+        self.chart_title.pack(
             anchor="w",
-            padx=24,
-            pady=(24, 12)
+            padx=20,
+            pady=(20, 10)
         )
 
         self.chart_container = ctk.CTkFrame(
             self.chart_card,
-            fg_color="transparent"
+            fg_color="#142038"
         )
 
         self.chart_container.pack(
@@ -416,47 +277,45 @@ class EmergyApp(ctk.CTk):
         )
 
         # =====================================================
-        # PIE CARD
+        # TABELA
         # =====================================================
 
-        self.pie_card = ctk.CTkFrame(
-            self.analytics_frame,
-            fg_color=AppStyles.CARD,
-            corner_radius=22,
-            border_width=1,
-            border_color=AppStyles.BORDER
+        self.table_card = ctk.CTkFrame(
+            self.content_frame,
+            fg_color="#142038",
+            corner_radius=22
         )
 
-        self.pie_card.grid(
+        self.table_card.grid(
             row=0,
             column=1,
-            padx=10,
-            sticky="nsew"
+            sticky="nsew",
+            padx=(10, 0)
         )
 
-        pie_title = ctk.CTkLabel(
-            self.pie_card,
-            text="Distribuição dos Fluxos",
-            font=("Arial", 28, "bold"),
+        self.table_title = ctk.CTkLabel(
+            self.table_card,
+            text="📊 Distribuição dos Fluxos",
+            font=("Arial", 24, "bold"),
             text_color="white"
         )
 
-        pie_title.pack(
+        self.table_title.pack(
             anchor="w",
-            padx=24,
-            pady=(24, 12)
+            padx=20,
+            pady=(20, 10)
         )
 
-        self.pie_container = ctk.CTkFrame(
-            self.pie_card,
-            fg_color="transparent"
+        self.table_frame = ctk.CTkScrollableFrame(
+            self.table_card,
+            fg_color="#142038"
         )
 
-        self.pie_container.pack(
+        self.table_frame.pack(
             fill="both",
             expand=True,
-            padx=10,
-            pady=10
+            padx=15,
+            pady=15
         )
 
         # =====================================================
@@ -466,43 +325,54 @@ class EmergyApp(ctk.CTk):
         self.result_label = ctk.CTkLabel(
             self.main_frame,
             text="Aguardando importação da base LCI...",
-            font=("Arial", 16),
-            text_color="#cbd5e1"
+            font=("Arial", 15),
+            text_color="#94a3b8"
         )
 
         self.result_label.pack(
             anchor="w",
-            padx=50,
+            padx=35,
             pady=(0, 20)
+        )
+
+    # =====================================================
+    # BOTÃO MENU
+    # =====================================================
+
+    def create_sidebar_button(self, text, command):
+
+        button = ctk.CTkButton(
+            self.sidebar,
+            text=text,
+            command=command,
+            height=52,
+            corner_radius=14,
+            font=("Arial", 16, "bold")
+        )
+
+        button.pack(
+            fill="x",
+            padx=20,
+            pady=10
         )
 
     # =====================================================
     # CARD
     # =====================================================
 
-    def create_card(
-            self,
-            parent,
-            title,
-            value,
-            subtitle,
-            color,
-            column
-    ):
+    def create_card(self, parent, title, value, column):
 
         card = ctk.CTkFrame(
             parent,
-            fg_color=AppStyles.CARD,
-            corner_radius=22,
-            border_width=1,
-            border_color=AppStyles.BORDER,
-            height=210
+            fg_color="#142038",
+            corner_radius=20,
+            height=160
         )
 
         card.grid(
             row=0,
             column=column,
-            padx=14,
+            padx=10,
             sticky="nsew"
         )
 
@@ -510,13 +380,13 @@ class EmergyApp(ctk.CTk):
             card,
             text=title,
             font=("Arial", 18),
-            text_color=AppStyles.SUBTEXT
+            text_color="#94a3b8"
         )
 
         title_label.pack(
             anchor="w",
-            padx=24,
-            pady=(24, 8)
+            padx=20,
+            pady=(20, 8)
         )
 
         value_label = ctk.CTkLabel(
@@ -528,20 +398,7 @@ class EmergyApp(ctk.CTk):
 
         value_label.pack(
             anchor="w",
-            padx=24
-        )
-
-        subtitle_label = ctk.CTkLabel(
-            card,
-            text=subtitle,
-            font=("Arial", 15),
-            text_color=AppStyles.SUBTEXT
-        )
-
-        subtitle_label.pack(
-            anchor="w",
-            padx=24,
-            pady=(5, 20)
+            padx=20
         )
 
         return value_label
@@ -556,46 +413,49 @@ class EmergyApp(ctk.CTk):
             filetypes=[("CSV files", "*.csv")]
         )
 
-        if file_path:
+        if not file_path:
+            return
 
-            success = self.lci_manager.load_csv(file_path)
+        success = self.lci_manager.load_csv(file_path)
 
-            if success:
+        if success:
 
-                data = self.lci_manager.get_data()
+            data = self.lci_manager.get_data()
 
-                self.network.graph.clear()
+            self.network.graph.clear()
 
-                for _, row in data.iterrows():
+            for _, row in data.iterrows():
 
-                    source = row['source']
-                    target = row['target']
-                    value = row['value']
+                source = row["source"]
+                target = row["target"]
+                value = float(row["value"])
 
-                    self.network.add_process(source)
-                    self.network.add_process(target)
+                self.network.add_process(source)
+                self.network.add_process(target)
 
-                    self.network.add_flow(
-                        source,
-                        target,
-                        value
-                    )
-
-                self.process_card.configure(
-                    text=str(
-                        len(self.network.graph.nodes)
-                    )
+                self.network.add_flow(
+                    source,
+                    target,
+                    value
                 )
 
-                self.flow_card.configure(
-                    text=str(
-                        len(self.network.graph.edges)
-                    )
+            self.process_card.configure(
+                text=str(
+                    len(self.network.graph.nodes)
                 )
+            )
 
-                self.result_label.configure(
-                    text="Base LCI carregada com sucesso!"
+            self.flow_card.configure(
+                text=str(
+                    len(self.network.graph.edges)
                 )
+            )
+
+            self.update_table(data)
+
+            self.result_label.configure(
+                text="Base LCI carregada com sucesso!"
+            )
 
     # =====================================================
     # CALCULAR
@@ -607,30 +467,81 @@ class EmergyApp(ctk.CTk):
             self.network
         )
 
-        total = calculator.calculate_total_emergy()
-
-        self.total_emergy = total
-
-        self.emergy_card.configure(
-            text=str(total)
+        self.total_emergy = (
+            calculator.calculate_total_emergy()
         )
 
-        next_month = f"M{len(self.history_months)+1}"
+        self.emergy_card.configure(
+            text=str(
+                round(self.total_emergy, 2)
+            )
+        )
 
-        self.history_months.append(next_month)
-
-        self.history_values.append(total)
+        self.result_label.configure(
+            text=f"Emergia total calculada: {self.total_emergy}"
+        )
 
         self.update_history_chart()
 
-        self.update_pie_chart()
+    # =====================================================
+    # TABELA
+    # =====================================================
 
-        self.result_label.configure(
-            text=f"Emergia total calculada: {total}"
-        )
+    def update_table(self, data):
+
+        for widget in self.table_frame.winfo_children():
+            widget.destroy()
+
+        headers = [
+            "Mês",
+            "Origem",
+            "Destino",
+            "Valor"
+        ]
+
+        for col, header in enumerate(headers):
+
+            label = ctk.CTkLabel(
+                self.table_frame,
+                text=header,
+                font=("Arial", 15, "bold"),
+                text_color="white"
+            )
+
+            label.grid(
+                row=0,
+                column=col,
+                padx=15,
+                pady=10
+            )
+
+        for i, (_, row) in enumerate(data.iterrows(), start=1):
+
+            values = [
+                row["month"],
+                row["source"],
+                row["target"],
+                row["value"]
+            ]
+
+            for j, value in enumerate(values):
+
+                cell = ctk.CTkLabel(
+                    self.table_frame,
+                    text=str(value),
+                    font=("Arial", 14),
+                    text_color="#cbd5e1"
+                )
+
+                cell.grid(
+                    row=i,
+                    column=j,
+                    padx=12,
+                    pady=8
+                )
 
     # =====================================================
-    # GRÁFICO HISTÓRICO
+    # GRÁFICO
     # =====================================================
 
     def update_history_chart(self):
@@ -638,31 +549,113 @@ class EmergyApp(ctk.CTk):
         for widget in self.chart_container.winfo_children():
             widget.destroy()
 
+        data = self.lci_manager.get_data()
+
+        if data is None:
+            return
+
+        month_totals = {}
+
+        for _, row in data.iterrows():
+
+            month = str(row["month"]).strip()
+
+            value = float(row["value"])
+
+            if month not in month_totals:
+                month_totals[month] = 0
+
+            month_totals[month] += value
+
+        month_order = [
+            "Jan", "Fev", "Mar", "Abr",
+            "Mai", "Jun", "Jul", "Ago",
+            "Set", "Out", "Nov", "Dez"
+        ]
+
+        ordered_months = []
+        ordered_values = []
+
+        for month in month_order:
+
+            if month in month_totals:
+
+                ordered_months.append(month)
+                ordered_values.append(
+                    month_totals[month]
+                )
+
         fig, ax = plt.subplots(
-            figsize=(5, 3),
+            figsize=(10, 5),
             dpi=100
         )
 
-        fig.patch.set_facecolor('#1b2940')
+        fig.patch.set_facecolor("#142038")
 
-        ax.set_facecolor('#1b2940')
+        ax.set_facecolor("#142038")
+
+        x = list(range(len(ordered_months)))
 
         ax.plot(
-            self.history_months,
-            self.history_values,
-            marker='o',
-            linewidth=3
+            x,
+            ordered_values,
+            marker="o",
+            linewidth=3,
+            markersize=8
+        )
+
+        ax.fill_between(
+            x,
+            ordered_values,
+            alpha=0.2
+        )
+
+        ax.set_xticks(x)
+
+        ax.set_xticklabels(
+            ordered_months,
+            color="white",
+            fontsize=10
+        )
+
+        ax.tick_params(
+            axis="y",
+            colors="white"
+        )
+
+        ax.grid(
+            True,
+            linestyle="--",
+            alpha=0.2
         )
 
         ax.set_title(
-            'Evolução da Emergia',
-            color='white',
-            fontsize=14
+            "Evolução Emergética Mensal",
+            color="white",
+            fontsize=18
         )
 
-        ax.tick_params(colors='white')
+        ax.set_xlabel(
+            "Meses",
+            color="white"
+        )
 
-        ax.grid(True, alpha=0.3)
+        ax.set_ylabel(
+            "Emergia",
+            color="white"
+        )
+
+        for i, value in enumerate(ordered_values):
+
+            ax.text(
+                i,
+                value + 5,
+                str(round(value, 1)),
+                color="white",
+                ha="center"
+            )
+
+        plt.tight_layout()
 
         canvas = FigureCanvasTkAgg(
             fig,
@@ -679,68 +672,11 @@ class EmergyApp(ctk.CTk):
         plt.close(fig)
 
     # =====================================================
-    # GRÁFICO PIZZA
-    # =====================================================
-
-    def update_pie_chart(self):
-
-        for widget in self.pie_container.winfo_children():
-            widget.destroy()
-
-        labels = []
-        values = []
-
-        for source, target, data in self.network.graph.edges(data=True):
-
-            labels.append(
-                f"{source}->{target}"
-            )
-
-            values.append(
-                data['weight']
-            )
-
-        if not values:
-            return
-
-        fig, ax = plt.subplots(
-            figsize=(5, 3),
-            dpi=100
-        )
-
-        fig.patch.set_facecolor('#1b2940')
-
-        ax.pie(
-            values,
-            labels=labels,
-            autopct='%1.1f%%'
-        )
-
-        ax.set_title(
-            'Distribuição dos Fluxos',
-            color='white',
-            fontsize=14
-        )
-
-        canvas = FigureCanvasTkAgg(
-            fig,
-            master=self.pie_container
-        )
-
-        canvas.draw()
-
-        canvas.get_tk_widget().pack(
-            fill="both",
-            expand=True
-        )
-
-        plt.close(fig)
-
-    # =====================================================
     # REDE
     # =====================================================
 
     def show_network(self):
+
         self.network.draw_network()
 
     # =====================================================
@@ -755,24 +691,24 @@ class EmergyApp(ctk.CTk):
             filename="relatorio_emergia.pdf",
             total_emergy=self.total_emergy,
             network=self.network,
-            historical_data=dict(
-                zip(
-                    self.history_months,
-                    self.history_values
-                )
-            )
+            data=self.lci_manager.get_data()
         )
 
         self.result_label.configure(
-            text=f"Relatório gerado em: {pdf_path}"
+            text=f"Relatório gerado: {pdf_path}"
         )
 
     # =====================================================
-    # FECHAR APP
+    # FECHAR
     # =====================================================
 
     def on_close(self):
 
-        plt.close('all')
+        try:
 
-        self.destroy()
+            self.quit()
+
+            self.destroy()
+
+        except:
+            pass

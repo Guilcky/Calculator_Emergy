@@ -1,7 +1,9 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
+
 class EmergyNetwork:
+
     def __init__(self):
         self.graph = nx.DiGraph()
 
@@ -12,6 +14,9 @@ class EmergyNetwork:
         self.graph.add_edge(source, target, weight=value)
 
     def draw_network(self):
+
+        plt.figure(figsize=(12, 8))
+
         pos = nx.spring_layout(self.graph)
 
         edge_labels = nx.get_edge_attributes(self.graph, 'weight')
@@ -20,17 +25,21 @@ class EmergyNetwork:
             self.graph,
             pos,
             with_labels=True,
-            node_color='lightblue',
-            node_size=2500,
-            font_size=10,
+            node_color='#3b82f6',
+            node_size=3500,
+            font_size=9,
+            font_color='white',
+            edge_color='#94a3b8',
             arrows=True
         )
 
         nx.draw_networkx_edge_labels(
             self.graph,
             pos,
-            edge_labels=edge_labels
+            edge_labels=edge_labels,
+            font_color='red'
         )
 
-        plt.title("Rede de Fluxo de Emergia")
+        plt.title("Rede Emergética", fontsize=18)
+
         plt.show()

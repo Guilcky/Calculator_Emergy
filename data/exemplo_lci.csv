@@ -1,4 +1,18 @@
-source,target,value
-Solar,Planta,100
-Planta,Animal,50
-Animal,Humano,25
+month,source,target,value
+Jan,Energia Solar,Agricultura,20
+Jan,Água,Agricultura,15
+Jan,Agricultura,Indústria Alimentícia,30
+Jan,Indústria Alimentícia,Distribuição,25
+Jan,Distribuição,Consumidor Final,18
+
+Fev,Energia Solar,Agricultura,180
+Fev,Água,Agricultura,140
+Fev,Agricultura,Indústria Alimentícia,260
+Fev,Indústria Alimentícia,Distribuição,220
+Fev,Distribuição,Consumidor Final,190
+
+Mar,Energia Solar,Agricultura,90
+Mar,Água,Agricultura,70
+Mar,Agricultura,Indústria Alimentícia,130
+Mar,Indústria Alimentícia,Distribuição,115
+Mar,Distribuição,Consumidor Final,100

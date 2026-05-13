@@ -1,6 +1,6 @@
+customtkinter
 pandas
-numpy
 networkx
 matplotlib
-customtkinter
 reportlab
+numpy
